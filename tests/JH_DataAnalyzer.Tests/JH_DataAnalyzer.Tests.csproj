@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     <ProjectReference Include="..\..\src\JH_DataAnalyzer.csproj" />
   </ItemGroup>
 
