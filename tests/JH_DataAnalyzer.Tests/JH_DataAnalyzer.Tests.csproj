@@ -30,6 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="TestData\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
