@@ -20,7 +20,12 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="ZedGraph" Version="5.1.7" />
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     <ProjectReference Include="..\..\src\JH_DataAnalyzer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
