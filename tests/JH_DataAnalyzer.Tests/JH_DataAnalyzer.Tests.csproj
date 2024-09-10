@@ -24,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\src\JAHWA.ico" Link="JAHWA.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
