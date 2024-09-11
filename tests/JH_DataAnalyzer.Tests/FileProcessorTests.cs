@@ -1,5 +1,4 @@
 using Xunit;
-using System.Windows.Forms;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +10,10 @@ namespace JH_DataAnalyzer.Tests
     {
         private readonly string testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData");
         private FileProcessor fileProcessor;
-        private ListBox testNameList;
-        private ListBox barcodeList;
-        private ListBox testTimeList;
-        private Label testTimeCount;
-        private TextBox testLogPath;
 
         public FileProcessorTests()
         {
             fileProcessor = new FileProcessor();
-            testNameList = new ListBox();
-            barcodeList = new ListBox();
-            testTimeList = new ListBox();
-            testTimeCount = new Label();
-            testLogPath = new TextBox();
-            fileProcessor.Initialize(testNameList, barcodeList, testTimeList, testTimeCount, testLogPath);
             Directory.CreateDirectory(testDataPath);
         }
 
@@ -39,9 +27,9 @@ namespace JH_DataAnalyzer.Tests
             await fileProcessor.ProcessFolderAsync(testDataPath);
 
             // Assert
-            Assert.Contains("TestName", testNameList.Items.Cast<string>());
-            Assert.Contains("Barcode", barcodeList.Items.Cast<string>());
-            Assert.Contains("TestTime", testTimeList.Items.Cast<string>());
+            Assert.Contains("TestName", fileProcessor.TestNames);
+            Assert.Contains("Barcode", fileProcessor.Barcodes);
+            Assert.Contains("TestTime", fileProcessor.TestTimes);
         }
 
         [Fact]
@@ -73,21 +61,10 @@ namespace JH_DataAnalyzer.Tests
 
     public class FileProcessor
     {
-        private HashSet<string> listBoxItems = new HashSet<string>();
-        private ListBox TestName_List;
-        private ListBox Barcode_List;
-        private ListBox TestTime_List;
-        private Label TestTime_count;
-        private TextBox TestLogPath;
-
-        public void Initialize(ListBox testNameList, ListBox barcodeList, ListBox testTimeList, Label testTimeCount, TextBox testLogPath)
-        {
-            TestName_List = testNameList;
-            Barcode_List = barcodeList;
-            TestTime_List = testTimeList;
-            TestTime_count = testTimeCount;
-            TestLogPath = testLogPath;
-        }
+        private HashSet<string> uniqueItems = new HashSet<string>();
+        public List<string> TestNames { get; } = new List<string>();
+        public List<string> Barcodes { get; } = new List<string>();
+        public List<string> TestTimes { get; } = new List<string>();
 
         public async Task<List<string>> FindTargetFilesAsync(string[] csvFiles, List<string> testNames, List<string> barcodes, List<string> testTimes)
         {
@@ -144,27 +121,23 @@ namespace JH_DataAnalyzer.Tests
                     testName = string.Join("_", parts.Skip(4));
                 }
 
-                await AddUniqueItemToListAsync(TestName_List, testName);
-                await AddUniqueItemToListAsync(Barcode_List, barcode);
-                await AddUniqueItemToListAsync(TestTime_List, testTime);
+                await AddUniqueItemAsync(TestNames, testName);
+                await AddUniqueItemAsync(Barcodes, barcode);
+                await AddUniqueItemAsync(TestTimes, testTime);
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
                 Console.WriteLine($"Error processing file {fullPath}: {ex.Message}");
             }
         }
 
-        public async Task AddUniqueItemToListAsync(ListBox listBox, string item)
+        public async Task AddUniqueItemAsync(List<string> list, string item)
         {
             await Task.Run(() =>
             {
-                if (listBoxItems.Add(item))
+                if (uniqueItems.Add(item))
                 {
-                    listBox.Invoke((MethodInvoker)delegate
-                    {
-                        listBox.Items.Add(item);
-                    });
+                    list.Add(item);
                 }
             });
         }
