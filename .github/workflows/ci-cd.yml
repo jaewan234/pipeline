@@ -46,6 +46,14 @@ jobs:
       with:
         name: JH_DataAnalyzer
         path: publish
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # SonarCloud 분석을 위해 전체 히스토리 가져오기
     
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
@@ -55,7 +63,7 @@ jobs:
 
   create_release:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, sonarcloud]
     if: startsWith(github.ref, 'refs/tags/')
     steps:
     - name: Create Release
