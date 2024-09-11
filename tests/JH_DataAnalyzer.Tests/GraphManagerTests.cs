@@ -8,7 +8,7 @@ using System.Drawing.Imaging;
 
 namespace JH_DataAnalyzer.Tests
 {
-    // Å×½ºÆ®¿ë ´õ¹Ì Å¬·¡½º
+    // í…ŒìŠ¤íŠ¸ìš© ë”ë¯¸ í´ë˜ìŠ¤
     public class JH_DataAnalyzer { }
 
     public class GraphManagerTests
@@ -69,18 +69,18 @@ namespace JH_DataAnalyzer.Tests
             oldPane.YAxis.Scale.Min = 0;
             oldPane.YAxis.Scale.Max = 100;
 
-            // »õ·Î¿î ÁÜ »óÅÂ ¼³Á¤
+            // ìƒˆë¡œìš´ ì¤Œ ìƒíƒœ ì„¤ì •
             var newPane = zgc.GraphPane.Clone() as GraphPane;
             var newXMin = 50;
             var newXMax = 150;
             newPane.XAxis.Scale.Min = newXMin;
             newPane.XAxis.Scale.Max = newXMax;
 
-            // ZoomState °´Ã¼ »ı¼º
+            // ZoomState ê°ì²´ ìƒì„±
             ZoomState oldState = new ZoomState(oldPane, ZoomState.StateType.Zoom);
             ZoomState newState = new ZoomState(newPane, ZoomState.StateType.Zoom);
 
-            // zgc_ZoomEvent ¸Ş¼­µå È£Ãâ
+            // zgc_ZoomEvent ë©”ì„œë“œ í˜¸ì¶œ
             graphManager.zgc_ZoomEvent(zgc, oldState, newState);
 
             // Assert
@@ -207,14 +207,14 @@ namespace JH_DataAnalyzer.Tests
                 if (oldState == null || newState == null)
                     return true;
 
-                // GraphPaneÀ» ÅëÇØ Ãà ½ºÄÉÀÏ ºñ±³
+                // GraphPaneì„ í†µí•´ ì¶• ìŠ¤ì¼€ì¼ ë¹„êµ
                 GraphPane oldPane = oldState.GetType().GetProperty("GraphPane")?.GetValue(oldState) as GraphPane;
                 GraphPane newPane = newState.GetType().GetProperty("GraphPane")?.GetValue(newState) as GraphPane;
 
                 if (oldPane == null || newPane == null)
                     return true;
 
-                // XÃà°ú YÃàÀÇ ½ºÄÉÀÏ º¯°æ ¿©ºÎ È®ÀÎ
+                // Xì¶•ê³¼ Yì¶•ì˜ ìŠ¤ì¼€ì¼ ë³€ê²½ ì—¬ë¶€ í™•ì¸
                 bool isXScaleChanged = !AreScalesEqual(oldPane.XAxis.Scale.Min, oldPane.XAxis.Scale.Max,
                                                        newPane.XAxis.Scale.Min, newPane.XAxis.Scale.Max);
                 bool isYScaleChanged = !AreScalesEqual(oldPane.YAxis.Scale.Min, oldPane.YAxis.Scale.Max,
