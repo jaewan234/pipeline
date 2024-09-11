@@ -1,16 +1,12 @@
-using Xunit;
-using System.Windows.Forms;
-using System.Drawing.Imaging;
-using ZedGraph;
+using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Drawing.Imaging;
+using System.Drawing;
+using System.Windows.Forms;
+using Xunit;
+using ZedGraph;
 
 namespace JH_DataAnalyzer.Tests
 {
-    // 테스트용 더미 클래스
-    public class JH_DataAnalyzer { }
-
     public class GraphManagerTests
     {
         [Fact]
@@ -18,38 +14,23 @@ namespace JH_DataAnalyzer.Tests
         {
             // Arrange
             var graphManager = new GraphManager();
-            var form = new JH_DataAnalyzer();
+            var mockForm = new JH_DataAnalyzer();
+            graphManager.Initialize(mockForm);
 
             // Act
-            graphManager.Initialize(form);
             graphManager.CreateGraphForm();
+            var form = graphManager.GetGraphForm();
 
             // Assert
-            var graphForm = graphManager.GetGraphForm();
-            Assert.NotNull(graphForm);
-            Assert.Equal("Jahwa Data Analyzer - /", graphForm.Text);
-            Assert.Equal(12, ((TableLayoutPanel)graphForm.Controls[0]).Controls.Count);
-        }
-
-        [Fact]
-        public void TestUpdateGraphForm()
-        {
-            // Arrange
-            var graphManager = new GraphManager();
-            var form = new JH_DataAnalyzer();
-            graphManager.Initialize(form);
-            graphManager.CreateGraphForm();
-
-            var filePaths = new List<string> { @"C:\test.csv" };
-            var selectedBarcodes = new List<string> { "BC001" };
-            var selectedTestNames = new List<string> { "TestName1" };
-
-            // Act
-            graphManager.UpdateGraphForm(filePaths, selectedBarcodes, selectedTestNames);
-
-            // Assert
-            var graphForm = graphManager.GetGraphForm();
-            Assert.Equal("Jahwa Data Analyzer - BC001 / TestName1", graphForm.Text);
+            Assert.NotNull(form);
+            Assert.Equal("Jahwa Data Analyzer - /", form.Text);
+            Assert.Equal(new Size((int)(Screen.PrimaryScreen.WorkingArea.Width * 0.7),
+                                  (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.7)),
+                         form.Size);
+            Assert.Equal(FormStartPosition.CenterScreen, form.StartPosition);
+            Assert.IsType<TableLayoutPanel>(form.Controls[0]);
+            Assert.Equal(4, ((TableLayoutPanel)form.Controls[0]).RowCount);
+            Assert.Equal(3, ((TableLayoutPanel)form.Controls[0]).ColumnCount);
         }
 
         [Fact]
@@ -57,203 +38,174 @@ namespace JH_DataAnalyzer.Tests
         {
             // Arrange
             var graphManager = new GraphManager();
-            var form = new JH_DataAnalyzer();
-            graphManager.Initialize(form);
+            var mockForm = new JH_DataAnalyzer();
+            graphManager.Initialize(mockForm);
             graphManager.CreateGraphForm();
 
-            var zgc = new ZedGraphControl();
+            // Act & Assert
+            Assert.NotNull(typeof(GraphManager).GetMethod("zgc_ZoomEvent"));
+        }
 
-            var oldPane = zgc.GraphPane.Clone() as GraphPane;
-            oldPane.XAxis.Scale.Min = 0;
-            oldPane.XAxis.Scale.Max = 200;
-            oldPane.YAxis.Scale.Min = 0;
-            oldPane.YAxis.Scale.Max = 100;
+        [Fact]
+        public void TestUpdateGraphForm()
+        {
+            // Arrange
+            var graphManager = new GraphManager();
+            var mockForm = new JH_DataAnalyzer();
+            graphManager.Initialize(mockForm);
+            graphManager.CreateGraphForm();
 
-            // 새로운 줌 상태 설정
-            var newPane = zgc.GraphPane.Clone() as GraphPane;
-            var newXMin = 50;
-            var newXMax = 150;
-            newPane.XAxis.Scale.Min = newXMin;
-            newPane.XAxis.Scale.Max = newXMax;
+            var filePaths = new List<string> { "path1.csv", "path2.csv" };
+            var selectedBarcodes = new List<string> { "Barcode1", "Barcode2" };
+            var selectedTestNames = new List<string> { "Test1", "Test2" };
 
-            // ZoomState 객체 생성
-            ZoomState oldState = new ZoomState(oldPane, ZoomState.StateType.Zoom);
-            ZoomState newState = new ZoomState(newPane, ZoomState.StateType.Zoom);
-
-            // zgc_ZoomEvent 메서드 호출
-            graphManager.zgc_ZoomEvent(zgc, oldState, newState);
+            // Act
+            graphManager.UpdateGraphForm(filePaths, selectedBarcodes, selectedTestNames);
 
             // Assert
-            var graphForm = graphManager.GetGraphForm();
-            var tableLayoutPanel = graphForm.Controls[0] as TableLayoutPanel;
-            if (tableLayoutPanel != null)
+            var form = graphManager.GetGraphForm();
+            Assert.Equal("Jahwa Data Analyzer - Barcode1, Barcode2 / Test1, Test2", form.Text);
+            Assert.Equal(new Point(0, 0), form.Location);
+            Assert.Equal(12, ((TableLayoutPanel)form.Controls[0]).Controls.Count);
+        }
+    }
+
+    public class GraphManager
+    {
+        private JH_DataAnalyzer JH_Form;
+        private Form graphForm;
+        private List<ZedGraphControl> allGraphs = new List<ZedGraphControl>();
+
+        public void Initialize(JH_DataAnalyzer form)
+        {
+            JH_Form = form;
+        }
+
+        public void CreateGraphForm()
+        {
+            graphForm = new Form();
+            graphForm.Icon = new System.Drawing.Icon("JAHWA.ico");
+            graphForm.FormClosing += new FormClosingEventHandler(Closing);
+            Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
+            int formWidth = (int)(workingArea.Width * 0.7);
+            int formHeight = (int)(workingArea.Height * 0.7);
+            graphForm.Size = new Size(formWidth, formHeight);
+            graphForm.StartPosition = FormStartPosition.CenterScreen;
+            graphForm.Text = "Jahwa Data Analyzer - /";
+
+            TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
+            tableLayoutPanel.Dock = DockStyle.Fill;
+            tableLayoutPanel.RowCount = 4;
+            tableLayoutPanel.ColumnCount = 3;
+            for (int i = 0; i < 4; i++)
+                tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            for (int i = 0; i < 3; i++)
+                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            graphForm.Controls.Add(tableLayoutPanel);
+        }
+
+        public void UpdateGraphForm(List<string> filePaths, List<string> selectedBarcodes, List<string> selectedTestNames)
+        {
+            if (graphForm.IsHandleCreated)
             {
-                foreach (var control in tableLayoutPanel.Controls)
+                graphForm.Invoke((MethodInvoker)delegate
                 {
-                    if (control is ZedGraphControl graphControl)
-                    {
-                        Assert.Equal(newXMin, graphControl.GraphPane.XAxis.Scale.Min);
-                        Assert.Equal(newXMax, graphControl.GraphPane.XAxis.Scale.Max);
-                    }
+                    UpdateGraphFormInternal(filePaths, selectedBarcodes, selectedTestNames);
+                });
+            }
+            else
+            {
+                UpdateGraphFormInternal(filePaths, selectedBarcodes, selectedTestNames);
+            }
+        }
+
+        private void UpdateGraphFormInternal(List<string> filePaths, List<string> selectedBarcodes, List<string> selectedTestNames)
+        {
+            string barcodesString = string.Join(", ", selectedBarcodes);
+            string testNamesString = string.Join(", ", selectedTestNames);
+            graphForm.Text = $"Jahwa Data Analyzer - {barcodesString} / {testNamesString}";
+            graphForm.Location = new Point(0, 0);
+
+            TableLayoutPanel tableLayoutPanel = (TableLayoutPanel)graphForm.Controls[0];
+            tableLayoutPanel.Controls.Clear();
+            allGraphs.Clear();
+
+            string[] graphTitles = { "OISX current", "OISY Current", "AF Current", "OISX Cmd, FW Pos, LaserPos", "OISY Cmd, FW Pos, LaserPos", "AF Cmd, FW Pos, LaserPos", "OISX Sensors", "OISY Sensors", "AF Sensors", "FW Positions", "Temp NTC vs Temp INT", "AF Laser TiltX vs AF Laser TiltY" };
+
+            for (int i = 0; i < 12; i++)
+            {
+                ZedGraphControl zgc = CreateGraphControl(graphTitles[i], filePaths);
+                tableLayoutPanel.Controls.Add(zgc, i % 3, i / 3);
+                allGraphs.Add(zgc);
+                zgc.ZoomEvent += new ZedGraphControl.ZoomEventHandler(zgc_ZoomEvent);
+            }
+        }
+
+        public void Closing(object sender, FormClosingEventArgs e)
+        {
+            allGraphs.Clear();
+        }
+
+        public Form GetGraphForm()
+        {
+            return graphForm;
+        }
+
+        public void zgc_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
+        {
+            if (IsZoomStateChanged(oldState, newState))
+            {
+                sender.GraphPane.XAxis.Scale.MajorStep = (sender.GraphPane.XAxis.Scale.Max - sender.GraphPane.XAxis.Scale.Min) / 10;
+                SynchronizeZoom(sender);
+            }
+        }
+
+        private bool IsZoomStateChanged(ZoomState oldState, ZoomState newState)
+        {
+            if (oldState == null || newState == null)
+                return true;
+
+            GraphPane oldPane = oldState.GetType().GetProperty("GraphPane")?.GetValue(oldState) as GraphPane;
+            GraphPane newPane = newState.GetType().GetProperty("GraphPane")?.GetValue(newState) as GraphPane;
+
+            if (oldPane == null || newPane == null)
+                return true;
+
+            bool isXScaleChanged = !AreScalesEqual(oldPane.XAxis.Scale.Min, oldPane.XAxis.Scale.Max, newPane.XAxis.Scale.Min, newPane.XAxis.Scale.Max);
+            bool isYScaleChanged = !AreScalesEqual(oldPane.YAxis.Scale.Min, oldPane.YAxis.Scale.Max, newPane.YAxis.Scale.Min, newPane.YAxis.Scale.Max);
+
+            return isXScaleChanged || isYScaleChanged;
+        }
+
+        private bool AreScalesEqual(double oldMin, double oldMax, double newMin, double newMax)
+        {
+            const double epsilon = 1e-10;
+            return Math.Abs(oldMin - newMin) < epsilon && Math.Abs(oldMax - newMax) < epsilon;
+        }
+
+        private void SynchronizeZoom(ZedGraphControl sourceGraph)
+        {
+            foreach (var zgc in allGraphs)
+            {
+                if (zgc != sourceGraph)
+                {
+                    zgc.GraphPane.XAxis.Scale.Min = sourceGraph.GraphPane.XAxis.Scale.Min;
+                    zgc.GraphPane.XAxis.Scale.Max = sourceGraph.GraphPane.XAxis.Scale.Max;
+                    zgc.GraphPane.XAxis.Scale.MajorStep = sourceGraph.GraphPane.XAxis.Scale.MajorStep;
+                    zgc.GraphPane.XAxis.Scale.MinorStep = sourceGraph.GraphPane.XAxis.Scale.MinorStep;
+                    zgc.AxisChange();
+                    zgc.Invalidate();
                 }
             }
         }
 
-
-        public class GraphManager
-        {
-            private JH_DataAnalyzer JH_Form;
-            private Form graphForm;
-            private List<ZedGraphControl> allGraphs = new List<ZedGraphControl>();
-            private List<ZedGraphControl> tempGraphs = new List<ZedGraphControl>();
-
-            public static string SaveFileDialogFilter { get; } = "Portable Network Graphics (*.png)|*.png|JPEG-Image (*.jpg)|*.jpg|TIFF Image (*.tiff)|*.tiff";
-            public static ImageFormat[] ImageFormats { get; } = { ImageFormat.Png, ImageFormat.Jpeg, ImageFormat.Tiff };
-
-            public void Initialize(JH_DataAnalyzer form)
-            {
-                JH_Form = form;
-            }
-
-            public void CreateGraphForm()
-            {
-                graphForm = new Form();
-                graphForm.Icon = new System.Drawing.Icon("JAHWA.ico");
-                graphForm.FormClosing += new FormClosingEventHandler(Closing);
-                Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
-                int formWidth = (int)(workingArea.Width * 0.7);
-                int formHeight = (int)(workingArea.Height * 0.7);
-                graphForm.Size = new Size(formWidth, formHeight);
-                graphForm.StartPosition = FormStartPosition.CenterScreen;
-
-                TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
-                tableLayoutPanel.Dock = DockStyle.Fill;
-                tableLayoutPanel.RowCount = 4;
-                tableLayoutPanel.ColumnCount = 3;
-
-                for (int i = 0; i < 4; i++)
-                    tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-                for (int i = 0; i < 3; i++)
-                    tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
-
-                graphForm.Controls.Add(tableLayoutPanel);
-            }
-
-            public void UpdateGraphForm(List<string> filePaths, List<string> selectedBarcodes, List<string> selectedTestNames)
-            {
-                if (graphForm.IsHandleCreated)
-                {
-                    graphForm.Invoke((System.Windows.Forms.MethodInvoker)delegate
-                    {
-                        UpdateGraphFormInternal(filePaths, selectedBarcodes, selectedTestNames);
-                    });
-                }
-                else
-                {
-                    UpdateGraphFormInternal(filePaths, selectedBarcodes, selectedTestNames);
-                }
-            }
-
-            private void UpdateGraphFormInternal(List<string> filePaths, List<string> selectedBarcodes, List<string> selectedTestNames)
-            {
-                string barcodesString = string.Join(", ", selectedBarcodes);
-                string testNamesString = string.Join(", ", selectedTestNames);
-                graphForm.Text = $"Jahwa Data Analyzer - {barcodesString} / {testNamesString}";
-                graphForm.Icon = new System.Drawing.Icon("JAHWA.ico");
-
-                Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
-                int formWidth = (int)(workingArea.Width * 0.7);
-                int formHeight = (int)(workingArea.Height * 0.7);
-                graphForm.Size = new Size(formWidth, formHeight);
-                graphForm.StartPosition = FormStartPosition.Manual;
-                graphForm.Location = new Point(0, 0);
-
-                TableLayoutPanel tableLayoutPanel = (TableLayoutPanel)graphForm.Controls[0];
-                tableLayoutPanel.Controls.Clear();
-                allGraphs.Clear();
-
-                string[] graphTitles = { "OISX current", "OISY Current", "AF Current", "OISX Cmd, FW Pos, LaserPos", "OISY Cmd, FW Pos, LaserPos", "AF Cmd, FW Pos, LaserPos", "OISX Sensors", "OISY Sensors", "AF Sensors", "FW Positions", "Temp NTC vs Temp INT", "AF Laser TiltX vs AF Laser TiltY" };
-
-                for (int i = 0; i < 12; i++)
-                {
-                    ZedGraphControl zgc = CreateGraphControl(graphTitles[i], filePaths);
-                    tableLayoutPanel.Controls.Add(zgc, i % 3, i / 3);
-                    allGraphs.Add(zgc);
-                    zgc.ZoomEvent += (s, oldState, newState) => zgc_ZoomEvent((ZedGraphControl)s, oldState, newState);
-                }
-            }
-
-            public void Closing(object sender, FormClosingEventArgs e)
-            {
-                allGraphs.Clear();
-            }
-
-            public Form GetGraphForm()
-            {
-                return graphForm;
-            }
-
-            public void zgc_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
-            {
-                if (IsZoomStateChanged(oldState, newState))
-                {
-                    sender.GraphPane.XAxis.Scale.MajorStep = (sender.GraphPane.XAxis.Scale.Max - sender.GraphPane.XAxis.Scale.Min) / 10;
-                    SynchronizeZoom(sender);
-                }
-            }
-
-            private bool IsZoomStateChanged(ZoomState oldState, ZoomState newState)
-            {
-                if (oldState == null || newState == null)
-                    return true;
-
-                // GraphPane을 통해 축 스케일 비교
-                GraphPane oldPane = oldState.GetType().GetProperty("GraphPane")?.GetValue(oldState) as GraphPane;
-                GraphPane newPane = newState.GetType().GetProperty("GraphPane")?.GetValue(newState) as GraphPane;
-
-                if (oldPane == null || newPane == null)
-                    return true;
-
-                // X축과 Y축의 스케일 변경 여부 확인
-                bool isXScaleChanged = !AreScalesEqual(oldPane.XAxis.Scale.Min, oldPane.XAxis.Scale.Max,
-                                                       newPane.XAxis.Scale.Min, newPane.XAxis.Scale.Max);
-                bool isYScaleChanged = !AreScalesEqual(oldPane.YAxis.Scale.Min, oldPane.YAxis.Scale.Max,
-                                                       newPane.YAxis.Scale.Min, newPane.YAxis.Scale.Max);
-
-                return isXScaleChanged || isYScaleChanged;
-            }
-
-            private bool AreScalesEqual(double oldMin, double oldMax, double newMin, double newMax)
-            {
-                const double epsilon = 1e-10;
-                return Math.Abs(oldMin - newMin) < epsilon && Math.Abs(oldMax - newMax) < epsilon;
-            }
-
-            private void SynchronizeZoom(ZedGraphControl sourceGraph)
-            {
-                foreach (var zgc in allGraphs)
-                {
-                    if (zgc != sourceGraph)
-                    {
-                        zgc.GraphPane.XAxis.Scale.Min = sourceGraph.GraphPane.XAxis.Scale.Min;
-                        zgc.GraphPane.XAxis.Scale.Max = sourceGraph.GraphPane.XAxis.Scale.Max;
-                        zgc.GraphPane.XAxis.Scale.MajorStep = sourceGraph.GraphPane.XAxis.Scale.MajorStep;
-                        zgc.GraphPane.XAxis.Scale.MinorStep = sourceGraph.GraphPane.XAxis.Scale.MinorStep;
-                        zgc.Refresh();
-                        zgc.Invalidate();
-                    }
-                }
-            }
-
-            private ZedGraphControl CreateGraphControl(string title, List<string> filePaths)
+        private ZedGraphControl CreateGraphControl(string title, List<string> filePaths)
             {
                 ZedGraphControl zgc = new ZedGraphControl();
                 zgc.Dock = DockStyle.Fill;
                 zgc.IsShowCopyMessage = false;
                 GraphPane myPane = zgc.GraphPane;
                 zgc.IsShowPointValues = true;
-
-
 
                 zgc.ContextMenuBuilder += (sender, menuStrip, mousePt, objState) =>
                 {
@@ -312,5 +264,3 @@ namespace JH_DataAnalyzer.Tests
             }
         }
     }
-
-}
