@@ -75,8 +75,8 @@ PROJECT_ICON           =
 # left blank the current directory will be used.
 
 OUTPUT_DIRECTORY       = docs
-HTML_OUTPUT            = .
 GENERATE_HTML          = YES
+HTML_OUTPUT            = .
 GENERATE_TREEVIEW      = YES
 
 # If the CREATE_SUBDIRS tag is set to YES then Doxygen will create up to 4096
