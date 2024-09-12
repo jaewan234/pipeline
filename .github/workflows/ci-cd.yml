@@ -92,11 +92,12 @@ jobs:
     - name: Generate Documentation
       run: |
         doxygen Doxyfile
-        cp docs/index.html docs/  # index.html이 docs 폴더 내에 없는 경우를 대비
+        if [ ! -f docs/index.html ]; then
+          echo '<meta http-equiv="refresh" content="0; url=./html/index.html">' > docs/index.html
+        fi
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
-        force_orphan: true
