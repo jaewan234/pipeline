@@ -1,26 +1,36 @@
 \hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor}{}\doxysection{JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor Class Reference}
 \label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor}\index{JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}}
+
+
+CSV 파일 처리를 담당하는 클래스입니다.  
+
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 async Task$<$ List$<$ string $>$ $>$ \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a11a6fa3ae9da8ced7c04017e5e309f83}{Find\+Target\+Files\+Async}} (string\mbox{[}$\,$\mbox{]} csv\+Files, List$<$ string $>$ test\+Names, List$<$ string $>$ barcodes, List$<$ string $>$ test\+Times)
-\item 
+\begin{DoxyCompactList}\small\item\em 주어진 조건에 맞는 CSV 파일들을 찾습니다. \end{DoxyCompactList}\item 
 async Task \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a95e98382344a37cd793e4ea8317b8e86}{Process\+Folder\+Async}} (string folder\+Path)
-\item 
+\begin{DoxyCompactList}\small\item\em 지정된 폴더의 CSV 파일들을 처리합니다. \end{DoxyCompactList}\item 
 async Task \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a7fe44319abd4fb276ec54f600824beca}{Process\+File\+Async}} (string\mbox{[}$\,$\mbox{]} parts, string full\+Path)
-\item 
+\begin{DoxyCompactList}\small\item\em 개별 파일을 처리합니다. \end{DoxyCompactList}\item 
 async Task \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_adcc47f3202a30b989d48f6862173524b}{Add\+Unique\+Item\+Async}} (List$<$ string $>$ list, string item)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em 리스트에 중복되지 않는 항목을 추가합니다. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Properties}
 \begin{DoxyCompactItemize}
 \item 
 List$<$ string $>$ \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_aaca4804162d7949120e5cbcb5f67cd8b}{Test\+Names}} = new List$<$string$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
-\item 
+\begin{DoxyCompactList}\small\item\em 처리된 테스트 이름들의 목록입니다. \end{DoxyCompactList}\item 
 List$<$ string $>$ \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_aab3e4ee63680ae33e3b89d7f8e0bb8c8}{Barcodes}} = new List$<$string$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
-\item 
+\begin{DoxyCompactList}\small\item\em 처리된 바코드들의 목록입니다. \end{DoxyCompactList}\item 
 List$<$ string $>$ \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a03e53bc2718d881f71bd48e21747fc49}{Test\+Times}} = new List$<$string$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em 처리된 테스트 시간들의 목록입니다. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+CSV 파일 처리를 담당하는 클래스입니다. 
+
+이 클래스는 CSV 파일을 읽고, 데이터를 분석하며, 결과를 저장합니다. 주요 기능으로는 폴더 내 CSV 파일 처리, 개별 파일 처리, 중복 항목 제거 등이 있습니다. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_adcc47f3202a30b989d48f6862173524b}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_adcc47f3202a30b989d48f6862173524b}} 
@@ -29,25 +39,80 @@ List$<$ string $>$ \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProces
 \doxysubsubsection{\texorpdfstring{AddUniqueItemAsync()}{AddUniqueItemAsync()}}
 {\footnotesize\ttfamily async Task JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor.\+Add\+Unique\+Item\+Async (\begin{DoxyParamCaption}\item[{List$<$ string $>$}]{list,  }\item[{string}]{item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a11a6fa3ae9da8ced7c04017e5e309f83}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a11a6fa3ae9da8ced7c04017e5e309f83}} 
+
+
+리스트에 중복되지 않는 항목을 추가합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & 항목을 추가할 리스트\\
+\hline
+{\em item} & 추가할 항목\\
+\hline
+\end{DoxyParams}
+
+
+이 메서드는 내부적으로 Hash\+Set을 사용하여 중복을 방지합니다. \mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a11a6fa3ae9da8ced7c04017e5e309f83}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a11a6fa3ae9da8ced7c04017e5e309f83}} 
 \index{JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}!FindTargetFilesAsync@{FindTargetFilesAsync}}
 \index{FindTargetFilesAsync@{FindTargetFilesAsync}!JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}}
 \doxysubsubsection{\texorpdfstring{FindTargetFilesAsync()}{FindTargetFilesAsync()}}
 {\footnotesize\ttfamily async Task$<$List$<$string$>$ $>$ JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor.\+Find\+Target\+Files\+Async (\begin{DoxyParamCaption}\item[{string\mbox{[}$\,$\mbox{]}}]{csv\+Files,  }\item[{List$<$ string $>$}]{test\+Names,  }\item[{List$<$ string $>$}]{barcodes,  }\item[{List$<$ string $>$}]{test\+Times }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+주어진 조건에 맞는 CSV 파일들을 찾습니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em csv\+Files} & 검색할 CSV 파일 배열\\
+\hline
+{\em test\+Names} & 찾을 테스트 이름 목록\\
+\hline
+{\em barcodes} & 찾을 바코드 목록\\
+\hline
+{\em test\+Times} & 찾을 테스트 시간 목록\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+조건에 맞는 파일 경로 목록
+\end{DoxyReturn}
 \mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a7fe44319abd4fb276ec54f600824beca}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a7fe44319abd4fb276ec54f600824beca}} 
 \index{JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}!ProcessFileAsync@{ProcessFileAsync}}
 \index{ProcessFileAsync@{ProcessFileAsync}!JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}}
 \doxysubsubsection{\texorpdfstring{ProcessFileAsync()}{ProcessFileAsync()}}
 {\footnotesize\ttfamily async Task JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor.\+Process\+File\+Async (\begin{DoxyParamCaption}\item[{string\mbox{[}$\,$\mbox{]}}]{parts,  }\item[{string}]{full\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a95e98382344a37cd793e4ea8317b8e86}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a95e98382344a37cd793e4ea8317b8e86}} 
+
+
+개별 파일을 처리합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parts} & 파일 이름의 각 부분\\
+\hline
+{\em full\+Path} & 파일의 전체 경로\\
+\hline
+\end{DoxyParams}
+
+
+이 메서드는 파일 이름에서 추출한 정보를 사용하여 테스트 이름, 바코드, 테스트 시간을 처리합니다. \mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a95e98382344a37cd793e4ea8317b8e86}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a95e98382344a37cd793e4ea8317b8e86}} 
 \index{JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}!ProcessFolderAsync@{ProcessFolderAsync}}
 \index{ProcessFolderAsync@{ProcessFolderAsync}!JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}}
 \doxysubsubsection{\texorpdfstring{ProcessFolderAsync()}{ProcessFolderAsync()}}
 {\footnotesize\ttfamily async Task JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor.\+Process\+Folder\+Async (\begin{DoxyParamCaption}\item[{string}]{folder\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+지정된 폴더의 CSV 파일들을 처리합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em folder\+Path} & 처리할 CSV 파일이 있는 폴더 경로\\
+\hline
+\end{DoxyParams}
+
+
+이 메서드는 지정된 폴더에서 모든 CSV 파일을 찾아 처리합니다. 각 파일은 Process\+File\+Async 메서드를 통해 개별적으로 처리됩니다. 
 
 \doxysubsection{Property Documentation}
 \mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_aab3e4ee63680ae33e3b89d7f8e0bb8c8}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_aab3e4ee63680ae33e3b89d7f8e0bb8c8}} 
@@ -56,17 +121,29 @@ List$<$ string $>$ \mbox{\hyperlink{classJH__DataAnalyzer_1_1Tests_1_1FileProces
 \doxysubsubsection{\texorpdfstring{Barcodes}{Barcodes}}
 {\footnotesize\ttfamily List$<$string$>$ JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor.\+Barcodes = new List$<$string$>$()\hspace{0.3cm}{\ttfamily [get]}}
 
+
+
+처리된 바코드들의 목록입니다. 
+
 \mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_aaca4804162d7949120e5cbcb5f67cd8b}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_aaca4804162d7949120e5cbcb5f67cd8b}} 
 \index{JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}!TestNames@{TestNames}}
 \index{TestNames@{TestNames}!JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}}
 \doxysubsubsection{\texorpdfstring{TestNames}{TestNames}}
 {\footnotesize\ttfamily List$<$string$>$ JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor.\+Test\+Names = new List$<$string$>$()\hspace{0.3cm}{\ttfamily [get]}}
 
+
+
+처리된 테스트 이름들의 목록입니다. 
+
 \mbox{\Hypertarget{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a03e53bc2718d881f71bd48e21747fc49}\label{classJH__DataAnalyzer_1_1Tests_1_1FileProcessor_a03e53bc2718d881f71bd48e21747fc49}} 
 \index{JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}!TestTimes@{TestTimes}}
 \index{TestTimes@{TestTimes}!JH\_DataAnalyzer.Tests.FileProcessor@{JH\_DataAnalyzer.Tests.FileProcessor}}
 \doxysubsubsection{\texorpdfstring{TestTimes}{TestTimes}}
 {\footnotesize\ttfamily List$<$string$>$ JH\+\_\+\+Data\+Analyzer.\+Tests.\+File\+Processor.\+Test\+Times = new List$<$string$>$()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+처리된 테스트 시간들의 목록입니다. 
 
 
 
