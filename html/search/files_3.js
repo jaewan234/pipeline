@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['globalusings_2ecs_97',['GlobalUsings.cs',['../GlobalUsings_8cs.html',1,'']]],
-  ['graphmanagertests_2ecs_98',['GraphManagerTests.cs',['../GraphManagerTests_8cs.html',1,'']]]
+  ['jh_5fdataanalyzer_2ecs_91',['JH_DataAnalyzer.cs',['../JH__DataAnalyzer_8cs.html',1,'']]],
+  ['jh_5fdataanalyzer_2edesigner_2ecs_92',['JH_DataAnalyzer.Designer.cs',['../JH__DataAnalyzer_8Designer_8cs.html',1,'']]]
 ];
