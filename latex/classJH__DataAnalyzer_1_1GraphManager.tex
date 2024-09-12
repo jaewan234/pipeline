@@ -1,0 +1,180 @@
+\hypertarget{classJH__DataAnalyzer_1_1GraphManager}{}\doxysection{JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager Class Reference}
+\label{classJH__DataAnalyzer_1_1GraphManager}\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_abeb9328cdcf05d469e9066c816dc9042}{Initialize}} (\mbox{\hyperlink{classJH__DataAnalyzer_1_1JH__DataAnalyzer}{JH\+\_\+\+Data\+Analyzer}} form)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager}{Graph\+Manager}} 클래스를 초기화하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_afd89ed943d51a2feff0660af7dd439bb}{Create\+Graph\+Form}} ()
+\begin{DoxyCompactList}\small\item\em 그래프를 표시할 새 폼을 생성하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_a863bdc43f2ba2eccd707279f88d8e8a4}{Update\+Graph\+Form}} (List$<$ string $>$ file\+Paths, List$<$ string $>$ selected\+Barcodes, List$<$ string $>$ selected\+Test\+Names)
+\begin{DoxyCompactList}\small\item\em 그래프 폼을 업데이트하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_a1c2ff9ac958be8dc02640267684fab0f}{Closing}} (object sender, Form\+Closing\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em 그래프 폼이 닫힐 때 호출되는 이벤트 핸들러 \end{DoxyCompactList}\item 
+Form \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_a30e4beb831fb38ededee539da2117074}{Get\+Graph\+Form}} ()
+\begin{DoxyCompactList}\small\item\em 그래프 폼을 반환하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_acfa8bbc507d6d0caf31d789e57d444f7}{zgc\+\_\+\+Zoom\+Event}} (Zed\+Graph\+Control sender, Zoom\+State old\+State, Zoom\+State new\+State)
+\begin{DoxyCompactList}\small\item\em Zed\+Graph 컨트롤의 줌 이벤트 핸들러 \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_a6bd45be173632e74d117e02e467ebc55}{Calculate\+Major\+Step}} (double range)
+\begin{DoxyCompactList}\small\item\em 그래프의 주 눈금 간격을 계산하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_a551b329dcbcccba20220f78ed503106e}{Update\+One\+Graph\+Form}} (List$<$ string $>$ file\+Paths, List$<$ string $>$ selected\+Barcode, List$<$ string $>$ selected\+Test\+Name)
+\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_aba8cfeefff913d545a73dc58d31298a1}{Update\+Graph}} (Graph\+Pane my\+Pane)
+\begin{DoxyCompactList}\small\item\em 선택된 열에 따라 그래프를 업데이트하는 메서드 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+static string \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_a4f69b95a2b84195573e4ee8a808c7c52}{Save\+File\+Dialog\+Filter}} = \char`\"{}Portable Network Graphics ($\ast$.png)$\vert$$\ast$.png$\vert$JPEG-\/\mbox{\hyperlink{JH__DataAnalyzer_8cs_a30acfd96c08f4113812658e049470119}{Image}} ($\ast$.jpg)$\vert$$\ast$.jpg$\vert$TIFF \mbox{\hyperlink{JH__DataAnalyzer_8cs_a30acfd96c08f4113812658e049470119}{Image}} ($\ast$.tiff)$\vert$$\ast$.tiff\char`\"{}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+static Image\+Format\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager_a536278a3b2b8217d5e3731de04f6f398}{Image\+Formats}} = \{ Image\+Format.\+Png, Image\+Format.\+Jpeg, Image\+Format.\+Tiff \}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_a6bd45be173632e74d117e02e467ebc55}\label{classJH__DataAnalyzer_1_1GraphManager_a6bd45be173632e74d117e02e467ebc55}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!CalculateMajorStep@{CalculateMajorStep}}
+\index{CalculateMajorStep@{CalculateMajorStep}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{CalculateMajorStep()}{CalculateMajorStep()}}
+{\footnotesize\ttfamily double JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Calculate\+Major\+Step (\begin{DoxyParamCaption}\item[{double}]{range }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+그래프의 주 눈금 간격을 계산하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em range} & 그래프의 데이터 범위\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+계산된 주 눈금 간격
+\end{DoxyReturn}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_a1c2ff9ac958be8dc02640267684fab0f}\label{classJH__DataAnalyzer_1_1GraphManager_a1c2ff9ac958be8dc02640267684fab0f}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!Closing@{Closing}}
+\index{Closing@{Closing}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{Closing()}{Closing()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Closing (\begin{DoxyParamCaption}\item[{object}]{sender,  }\item[{Form\+Closing\+Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+그래프 폼이 닫힐 때 호출되는 이벤트 핸들러 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & 이벤트 발생 객체\\
+\hline
+{\em e} & 이벤트 인자\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_afd89ed943d51a2feff0660af7dd439bb}\label{classJH__DataAnalyzer_1_1GraphManager_afd89ed943d51a2feff0660af7dd439bb}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!CreateGraphForm@{CreateGraphForm}}
+\index{CreateGraphForm@{CreateGraphForm}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{CreateGraphForm()}{CreateGraphForm()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Create\+Graph\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+그래프를 표시할 새 폼을 생성하는 메서드 
+
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_a30e4beb831fb38ededee539da2117074}\label{classJH__DataAnalyzer_1_1GraphManager_a30e4beb831fb38ededee539da2117074}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!GetGraphForm@{GetGraphForm}}
+\index{GetGraphForm@{GetGraphForm}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{GetGraphForm()}{GetGraphForm()}}
+{\footnotesize\ttfamily Form JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Get\+Graph\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+그래프 폼을 반환하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & 이벤트 발생 객체\\
+\hline
+{\em e} & 이벤트 인자\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_abeb9328cdcf05d469e9066c816dc9042}\label{classJH__DataAnalyzer_1_1GraphManager_abeb9328cdcf05d469e9066c816dc9042}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Initialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classJH__DataAnalyzer_1_1JH__DataAnalyzer}{JH\+\_\+\+Data\+Analyzer}}}]{form }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classJH__DataAnalyzer_1_1GraphManager}{Graph\+Manager}} 클래스를 초기화하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em form} & \mbox{\hyperlink{classJH__DataAnalyzer_1_1JH__DataAnalyzer}{JH\+\_\+\+Data\+Analyzer}} 폼 인스턴스\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_aba8cfeefff913d545a73dc58d31298a1}\label{classJH__DataAnalyzer_1_1GraphManager_aba8cfeefff913d545a73dc58d31298a1}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!UpdateGraph@{UpdateGraph}}
+\index{UpdateGraph@{UpdateGraph}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{UpdateGraph()}{UpdateGraph()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Update\+Graph (\begin{DoxyParamCaption}\item[{Graph\+Pane}]{my\+Pane }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+선택된 열에 따라 그래프를 업데이트하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+Pane} & 업데이트할 그래프 패널\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_a863bdc43f2ba2eccd707279f88d8e8a4}\label{classJH__DataAnalyzer_1_1GraphManager_a863bdc43f2ba2eccd707279f88d8e8a4}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!UpdateGraphForm@{UpdateGraphForm}}
+\index{UpdateGraphForm@{UpdateGraphForm}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{UpdateGraphForm()}{UpdateGraphForm()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Update\+Graph\+Form (\begin{DoxyParamCaption}\item[{List$<$ string $>$}]{file\+Paths,  }\item[{List$<$ string $>$}]{selected\+Barcodes,  }\item[{List$<$ string $>$}]{selected\+Test\+Names }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+그래프 폼을 업데이트하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Paths} & 처리할 파일 경로 목록\\
+\hline
+{\em selected\+Barcodes} & 선택된 바코드 목록\\
+\hline
+{\em selected\+Test\+Names} & 선택된 테스트 이름 목록\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_a551b329dcbcccba20220f78ed503106e}\label{classJH__DataAnalyzer_1_1GraphManager_a551b329dcbcccba20220f78ed503106e}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!UpdateOneGraphForm@{UpdateOneGraphForm}}
+\index{UpdateOneGraphForm@{UpdateOneGraphForm}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{UpdateOneGraphForm()}{UpdateOneGraphForm()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Update\+One\+Graph\+Form (\begin{DoxyParamCaption}\item[{List$<$ string $>$}]{file\+Paths,  }\item[{List$<$ string $>$}]{selected\+Barcode,  }\item[{List$<$ string $>$}]{selected\+Test\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_acfa8bbc507d6d0caf31d789e57d444f7}\label{classJH__DataAnalyzer_1_1GraphManager_acfa8bbc507d6d0caf31d789e57d444f7}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!zgc\_ZoomEvent@{zgc\_ZoomEvent}}
+\index{zgc\_ZoomEvent@{zgc\_ZoomEvent}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{zgc\_ZoomEvent()}{zgc\_ZoomEvent()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+zgc\+\_\+\+Zoom\+Event (\begin{DoxyParamCaption}\item[{Zed\+Graph\+Control}]{sender,  }\item[{Zoom\+State}]{old\+State,  }\item[{Zoom\+State}]{new\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zed\+Graph 컨트롤의 줌 이벤트 핸들러 
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_a536278a3b2b8217d5e3731de04f6f398}\label{classJH__DataAnalyzer_1_1GraphManager_a536278a3b2b8217d5e3731de04f6f398}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!ImageFormats@{ImageFormats}}
+\index{ImageFormats@{ImageFormats}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{ImageFormats}{ImageFormats}}
+{\footnotesize\ttfamily Image\+Format \mbox{[}$\,$\mbox{]} JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Image\+Formats = \{ Image\+Format.\+Png, Image\+Format.\+Jpeg, Image\+Format.\+Tiff \}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [get]}}
+
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1GraphManager_a4f69b95a2b84195573e4ee8a808c7c52}\label{classJH__DataAnalyzer_1_1GraphManager_a4f69b95a2b84195573e4ee8a808c7c52}} 
+\index{JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}!SaveFileDialogFilter@{SaveFileDialogFilter}}
+\index{SaveFileDialogFilter@{SaveFileDialogFilter}!JH\_DataAnalyzer.GraphManager@{JH\_DataAnalyzer.GraphManager}}
+\doxysubsubsection{\texorpdfstring{SaveFileDialogFilter}{SaveFileDialogFilter}}
+{\footnotesize\ttfamily string JH\+\_\+\+Data\+Analyzer.\+Graph\+Manager.\+Save\+File\+Dialog\+Filter = \char`\"{}Portable Network Graphics ($\ast$.png)$\vert$$\ast$.png$\vert$JPEG-\/\mbox{\hyperlink{JH__DataAnalyzer_8cs_a30acfd96c08f4113812658e049470119}{Image}} ($\ast$.jpg)$\vert$$\ast$.jpg$\vert$TIFF \mbox{\hyperlink{JH__DataAnalyzer_8cs_a30acfd96c08f4113812658e049470119}{Image}} ($\ast$.tiff)$\vert$$\ast$.tiff\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [get]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{JH__DataAnalyzer_8cs}{JH\+\_\+\+Data\+Analyzer.\+cs}}\end{DoxyCompactItemize}

@@ -1,0 +1,146 @@
+\hypertarget{classJH__DataAnalyzer_1_1FileProcessor}{}\doxysection{JH\+\_\+\+Data\+Analyzer.\+File\+Processor Class Reference}
+\label{classJH__DataAnalyzer_1_1FileProcessor}\index{JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}}
+
+
+파일 처리를 담당하는 클래스  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1FileProcessor_a99fb84eaec48c1a67509601069e76499}{Initialize}} (List\+Box test\+Name\+List, List\+Box barcode\+List, List\+Box test\+Time\+List, System.\+Windows.\+Forms.\+Label test\+Time\+Count, Text\+Box test\+Log\+Path)
+\begin{DoxyCompactList}\small\item\em File\+Processor를 초기화하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1FileProcessor_a13fc67904d278e8a1cff6aea570d4296}{Process\+Folder}} (string folder\+Path)
+\begin{DoxyCompactList}\small\item\em 지정된 폴더의 CSV 파일들을 처리하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1FileProcessor_a58e32d24fef0d2782f77955c661d66af}{Process\+File}} (string\mbox{[}$\,$\mbox{]} parts, string full\+Path)
+\begin{DoxyCompactList}\small\item\em 개별 파일을 처리하는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1FileProcessor_a715426d35625bc3fc2ef6a433917d7ec}{Add\+Unique\+Item\+To\+List}} (List\+Box list\+Box, string item)
+\begin{DoxyCompactList}\small\item\em List\+Box에 중복되지 않는 항목을 추가하는 메서드 \end{DoxyCompactList}\item 
+List$<$ string $>$ \mbox{\hyperlink{classJH__DataAnalyzer_1_1FileProcessor_a83249841c364d10238dbaa90034d274f}{Find\+Target\+Files}} (string\mbox{[}$\,$\mbox{]} csv\+Files, List$<$ string $>$ test\+Names, List$<$ string $>$ barcodes, List$<$ string $>$ test\+Times)
+\begin{DoxyCompactList}\small\item\em 주어진 조건에 맞는 CSV 파일들을 찾는 메서드 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJH__DataAnalyzer_1_1FileProcessor_af21a1fde7de9bc697e609719ab45dc29}{Test\+Time\+List\+\_\+update}} (List$<$ string $>$ selected\+Barcodes)
+\begin{DoxyCompactList}\small\item\em 선택된 바코드에 해당하는 테스트 시간 목록을 업데이트하는 메서드 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+파일 처리를 담당하는 클래스 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1FileProcessor_a715426d35625bc3fc2ef6a433917d7ec}\label{classJH__DataAnalyzer_1_1FileProcessor_a715426d35625bc3fc2ef6a433917d7ec}} 
+\index{JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}!AddUniqueItemToList@{AddUniqueItemToList}}
+\index{AddUniqueItemToList@{AddUniqueItemToList}!JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}}
+\doxysubsubsection{\texorpdfstring{AddUniqueItemToList()}{AddUniqueItemToList()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+File\+Processor.\+Add\+Unique\+Item\+To\+List (\begin{DoxyParamCaption}\item[{List\+Box}]{list\+Box,  }\item[{string}]{item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+List\+Box에 중복되지 않는 항목을 추가하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list\+Box} & 항목을 추가할 List\+Box\\
+\hline
+{\em item} & 추가할 항목\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1FileProcessor_a83249841c364d10238dbaa90034d274f}\label{classJH__DataAnalyzer_1_1FileProcessor_a83249841c364d10238dbaa90034d274f}} 
+\index{JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}!FindTargetFiles@{FindTargetFiles}}
+\index{FindTargetFiles@{FindTargetFiles}!JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}}
+\doxysubsubsection{\texorpdfstring{FindTargetFiles()}{FindTargetFiles()}}
+{\footnotesize\ttfamily List$<$string$>$ JH\+\_\+\+Data\+Analyzer.\+File\+Processor.\+Find\+Target\+Files (\begin{DoxyParamCaption}\item[{string\mbox{[}$\,$\mbox{]}}]{csv\+Files,  }\item[{List$<$ string $>$}]{test\+Names,  }\item[{List$<$ string $>$}]{barcodes,  }\item[{List$<$ string $>$}]{test\+Times }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+주어진 조건에 맞는 CSV 파일들을 찾는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em csv\+Files} & 검색할 CSV 파일 배열\\
+\hline
+{\em test\+Names} & 찾을 테스트 이름 목록\\
+\hline
+{\em barcodes} & 찾을 바코드 목록\\
+\hline
+{\em test\+Times} & 찾을 테스트 시간 목록\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+조건에 맞는 파일 경로 목록
+\end{DoxyReturn}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1FileProcessor_a99fb84eaec48c1a67509601069e76499}\label{classJH__DataAnalyzer_1_1FileProcessor_a99fb84eaec48c1a67509601069e76499}} 
+\index{JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+File\+Processor.\+Initialize (\begin{DoxyParamCaption}\item[{List\+Box}]{test\+Name\+List,  }\item[{List\+Box}]{barcode\+List,  }\item[{List\+Box}]{test\+Time\+List,  }\item[{System.\+Windows.\+Forms.\+Label}]{test\+Time\+Count,  }\item[{Text\+Box}]{test\+Log\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+File\+Processor를 초기화하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em test\+Name\+List} & 테스트 이름 List\+Box\\
+\hline
+{\em barcode\+List} & 바코드 List\+Box\\
+\hline
+{\em test\+Time\+List} & 테스트 시간 List\+Box\\
+\hline
+{\em test\+Time\+Count} & 테스트 시간 카운트 Label\\
+\hline
+{\em test\+Log\+Path} & 테스트 로그 경로 Text\+Box\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1FileProcessor_a58e32d24fef0d2782f77955c661d66af}\label{classJH__DataAnalyzer_1_1FileProcessor_a58e32d24fef0d2782f77955c661d66af}} 
+\index{JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}!ProcessFile@{ProcessFile}}
+\index{ProcessFile@{ProcessFile}!JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}}
+\doxysubsubsection{\texorpdfstring{ProcessFile()}{ProcessFile()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+File\+Processor.\+Process\+File (\begin{DoxyParamCaption}\item[{string\mbox{[}$\,$\mbox{]}}]{parts,  }\item[{string}]{full\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+개별 파일을 처리하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parts} & 파일 이름을 분리한 배열\\
+\hline
+{\em full\+Path} & 파일의 전체 경로\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1FileProcessor_a13fc67904d278e8a1cff6aea570d4296}\label{classJH__DataAnalyzer_1_1FileProcessor_a13fc67904d278e8a1cff6aea570d4296}} 
+\index{JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}!ProcessFolder@{ProcessFolder}}
+\index{ProcessFolder@{ProcessFolder}!JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}}
+\doxysubsubsection{\texorpdfstring{ProcessFolder()}{ProcessFolder()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+File\+Processor.\+Process\+Folder (\begin{DoxyParamCaption}\item[{string}]{folder\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+지정된 폴더의 CSV 파일들을 처리하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em folder\+Path} & 처리할 폴더 경로\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJH__DataAnalyzer_1_1FileProcessor_af21a1fde7de9bc697e609719ab45dc29}\label{classJH__DataAnalyzer_1_1FileProcessor_af21a1fde7de9bc697e609719ab45dc29}} 
+\index{JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}!TestTimeList\_update@{TestTimeList\_update}}
+\index{TestTimeList\_update@{TestTimeList\_update}!JH\_DataAnalyzer.FileProcessor@{JH\_DataAnalyzer.FileProcessor}}
+\doxysubsubsection{\texorpdfstring{TestTimeList\_update()}{TestTimeList\_update()}}
+{\footnotesize\ttfamily void JH\+\_\+\+Data\+Analyzer.\+File\+Processor.\+Test\+Time\+List\+\_\+update (\begin{DoxyParamCaption}\item[{List$<$ string $>$}]{selected\+Barcodes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+선택된 바코드에 해당하는 테스트 시간 목록을 업데이트하는 메서드 
+
+
+\begin{DoxyParams}{Parameters}
+{\em selected\+Barcodes} & 선택된 바코드 목록\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{JH__DataAnalyzer_8cs}{JH\+\_\+\+Data\+Analyzer.\+cs}}\end{DoxyCompactItemize}
