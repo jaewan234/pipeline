@@ -30,7 +30,8 @@ jobs:
     
     - name: Create solution file
       run: |
-        dotnet new sln -n JH_DataAnalyzer
+        rm -f JH_DataAnalyzer.sln
+        dotnet new sln -n JH_DataAnalyzer --force
         find . -name "*.csproj" -exec dotnet sln JH_DataAnalyzer.sln add {} \;
     
     - name: Restore dependencies
