@@ -56,7 +56,7 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   sonarcloud:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Windows 환경으로 변경
     needs: build  # build 작업 완료 후 실행
     steps:
     - uses: actions/checkout@v3
@@ -79,7 +79,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-        dotnet build --no-restore /p:EnableWindowsTargeting=true  # Windows 타겟팅 활성화
+        dotnet build --no-restore
         dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
