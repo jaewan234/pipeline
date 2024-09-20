@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Windows 환경에서 실행
+    runs-on: windows-latest  # Windows 환경에서 실행 (NuGet 패키지 경로 문제 해결을 위해)
     
     steps:
     - uses: actions/checkout@v3  # 리포지토리 코드를 체크아웃
@@ -24,17 +24,17 @@ jobs:
       with:
         dotnet-version: '6.0.x'  # .NET 6.0 버전 사용
     
-    - name: Clear NuGet cache  # NuGet 캐시 초기화
+    - name: Clear NuGet cache  # NuGet 캐시 초기화 (패키지 해결 문제 방지)
       run: dotnet nuget locals all --clear
     
     - name: Restore dependencies  # 프로젝트 종속성 복원
-      run: dotnet restore /p:EnableWindowsTargeting=true
+      run: dotnet restore /p:EnableWindowsTargeting=true  # Windows 타겟팅 활성화
     
     - name: Build  # 프로젝트 빌드
       run: dotnet build --configuration Release --no-restore /p:EnableWindowsTargeting=true
     
     - name: Test with coverage  # 단위 테스트 실행 및 커버리지 데이터 수집
-      run: dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:EnableWindowsTargeting=true
     
     - name: Publish  # 릴리스 구성으로 프로젝트 게시
       run: dotnet publish src/JH_DataAnalyzer.csproj -c Release -o publish -r win-x64 --self-contained true
@@ -68,21 +68,15 @@ jobs:
         dotnet tool install --global dotnet-sonarscanner
         dotnet tool install --global coverlet.console
 
-    - name: Remove sonar-project.properties  # sonar-project.properties 파일 제거 (필요한 경우)
-      run: |
-        if (Test-Path "D:\a\pipeline\pipeline\sonar-project.properties") {
-          Remove-Item "D:\a\pipeline\pipeline\sonar-project.properties"
-        }
-
     - name: Build and analyze  # 빌드 및 SonarCloud 분석 실행
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       shell: powershell
       run: |
-        dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.scanner.scanAll=false
-        dotnet build --configuration Release
-        dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.scanner.scanAll=false /d:sonar.coverage.exclusions="**/*Tests.cs"
+        dotnet build --configuration Release /p:EnableWindowsTargeting=true
+        dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:EnableWindowsTargeting=true
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
   create_release:
