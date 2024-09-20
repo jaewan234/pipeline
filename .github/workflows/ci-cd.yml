@@ -12,8 +12,7 @@ on:
 
 jobs:
   build:
-    # Linux 환경으로 변경하여 Windows 경로 문제 해결
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Windows 환경에서 실행
     
     steps:
     - uses: actions/checkout@v3  # 리포지토리 코드를 체크아웃
@@ -25,21 +24,20 @@ jobs:
       with:
         dotnet-version: '6.0.x'  # .NET 6.0 버전 사용
     
-    # NuGet 패키지 복원 문제 해결을 위한 단계 추가
-    - name: Clear NuGet cache
+    - name: Clear NuGet cache  # NuGet 캐시 초기화
       run: dotnet nuget locals all --clear
     
     - name: Restore dependencies  # 프로젝트 종속성 복원
-      run: dotnet restore
+      run: dotnet restore /p:EnableWindowsTargeting=true
     
     - name: Build  # 프로젝트 빌드
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore /p:EnableWindowsTargeting=true
     
     - name: Test with coverage  # 단위 테스트 실행 및 커버리지 데이터 수집
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     
     - name: Publish  # 릴리스 구성으로 프로젝트 게시
-      run: dotnet publish src/JH_DataAnalyzer.csproj -c Release -o publish
+      run: dotnet publish src/JH_DataAnalyzer.csproj -c Release -o publish -r win-x64 --self-contained true
     
     - name: Upload artifact  # 빌드 결과물을 아티팩트로 업로드
       uses: actions/upload-artifact@v3
@@ -53,40 +51,39 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   sonarcloud:
-    runs-on: ubuntu-latest  # Linux 환경으로 변경
+    runs-on: windows-latest  # Windows 환경에서 실행
     needs: build  # build 작업 완료 후 실행
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0  # 전체 Git 히스토리를 가져옴 (SonarCloud 분석용)
+        fetch-depth: 0
     
-    - name: Setup .NET  # .NET 환경 설정
+    - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'  # .NET 6.0 버전 사용
+        dotnet-version: '6.0.x'
 
-    - name: Install SonarCloud scanner  # SonarCloud 스캐너 설치
+    - name: Install SonarCloud scanner
       run: |
         dotnet tool install --global dotnet-sonarscanner
         dotnet tool install --global coverlet.console
 
-    - name: Build and analyze  # 빌드 및 SonarCloud 분석 실행
+    - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-        dotnet build --configuration Release
+        dotnet build --configuration Release /p:EnableWindowsTargeting=true
         dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
-  # 나머지 작업들은 그대로 유지
   create_release:
     runs-on: ubuntu-latest
-    needs: [build, sonarcloud]  # build와 sonarcloud 작업 완료 후 실행
-    if: startsWith(github.ref, 'refs/tags/')  # 태그 푸시 시에만 실행
+    needs: [build, sonarcloud]
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
-    - name: Create Release  # GitHub 릴리스 생성
+    - name: Create Release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -98,23 +95,23 @@ jobs:
 
   generate_docs:
     runs-on: ubuntu-latest
-    needs: build  # build 작업 완료 후 실행
+    needs: build
     permissions:
-      contents: write  # GitHub Pages에 배포하기 위한 쓰기 권한
+      contents: write 
     steps:
     - uses: actions/checkout@v3
     
-    - name: Install Doxygen  # Doxygen 설치
+    - name: Install Doxygen 
       run: sudo apt-get install doxygen -y
     
-    - name: Generate Documentation  # Doxygen을 사용하여 문서 생성
+    - name: Generate Documentation 
       run: |
         doxygen Doxyfile
         if [ ! -f docs/index.html ]; then
           echo '<meta http-equiv="refresh" content="0; url=./html/index.html">' > docs/index.html
         fi
     
-    - name: Deploy to GitHub Pages  # 생성된 문서를 GitHub Pages에 배포
+    - name: Deploy to GitHub Pages 
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
