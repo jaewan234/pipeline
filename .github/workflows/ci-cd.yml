@@ -50,6 +50,11 @@ jobs:
         name: JH_DataAnalyzer
         path: publish
 
+    - name: Upload coverage reports to Codecov  # Codecov에 커버리지 보고서 업로드
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
   sonarcloud:
     runs-on: ubuntu-latest
     needs: build  # build 작업 완료 후 실행
@@ -74,7 +79,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-        dotnet build --no-restore
+        dotnet build --no-restore /p:EnableWindowsTargeting=true  # Windows 타겟팅 활성화
         dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
