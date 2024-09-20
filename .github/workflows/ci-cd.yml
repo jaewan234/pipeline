@@ -12,8 +12,8 @@ on:
 
 jobs:
   build:
-    # Windows 환경에서 실행하여 NuGet 패키지 경로 문제 해결
-    runs-on: windows-latest
+    # Linux 환경에서 실행하여 크로스 플랫폼 호환성 확보
+    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3
@@ -26,25 +26,20 @@ jobs:
         dotnet-version: '6.0.x'  # 프로젝트에 맞는 .NET 버전 사용
     
     - name: Clear NuGet cache
-      # NuGet 캐시 초기화로 패키지 해결 문제 방지
       run: dotnet nuget locals all --clear
     
     - name: Create solution file
-      # 솔루션 파일이 없거나 손상된 경우를 대비해 새로 생성
       run: |
         dotnet new sln -n JH_DataAnalyzer
-        dotnet sln add (Get-ChildItem -Recurse -Filter *.csproj)
+        find . -name "*.csproj" -exec dotnet sln JH_DataAnalyzer.sln add {} \;
     
     - name: Restore dependencies
-      # 새로 생성된 솔루션 파일을 사용하여 종속성 복원
       run: dotnet restore JH_DataAnalyzer.sln
     
     - name: Build
-      # 새로 생성된 솔루션 파일을 사용하여 프로젝트 빌드
       run: dotnet build JH_DataAnalyzer.sln --configuration Release --no-restore
     
     - name: Test with coverage
-      # 새로 생성된 솔루션 파일을 사용하여 테스트 실행 및 커버리지 데이터 수집
       run: dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
   sonarcloud:
