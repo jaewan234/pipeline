@@ -1,13 +1,7 @@
 var searchData=
 [
-  ['test1_49',['Test1',['../classUnitTest1.html#af6b2e5a1d6df7e01c9fee1175206d8fe',1,'UnitTest1']]],
-  ['testfindtargetfiles_50',['TestFindTargetFiles',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessorTests.html#a5eddeef25acecdea899e72d3a58399b4',1,'JH_DataAnalyzer::Tests::FileProcessorTests']]],
-  ['testgraphcreation_51',['TestGraphCreation',['../classJH__DataAnalyzer_1_1Tests_1_1GraphManagerTests.html#a075d076c0e32c205990f49e2b3a60386',1,'JH_DataAnalyzer::Tests::GraphManagerTests']]],
-  ['testnames_52',['TestNames',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessor.html#aaca4804162d7949120e5cbcb5f67cd8b',1,'JH_DataAnalyzer::Tests::FileProcessor']]],
-  ['testprocessfolder_53',['TestProcessFolder',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessorTests.html#ac73351d0676a12bad8ee95b1b6328b2d',1,'JH_DataAnalyzer::Tests::FileProcessorTests']]],
-  ['testtime_5flist_5fmousedown_54',['TestTime_List_MouseDown',['../classJH__DataAnalyzer_1_1UIController.html#a15a296c5fbfcb40d5db04f692a0b0b03',1,'JH_DataAnalyzer::UIController']]],
-  ['testtimelist_5fupdate_55',['TestTimeList_update',['../classJH__DataAnalyzer_1_1FileProcessor.html#af21a1fde7de9bc697e609719ab45dc29',1,'JH_DataAnalyzer::FileProcessor']]],
-  ['testtimes_56',['TestTimes',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessor.html#a03e53bc2718d881f71bd48e21747fc49',1,'JH_DataAnalyzer::Tests::FileProcessor']]],
-  ['testupdategraphform_57',['TestUpdateGraphForm',['../classJH__DataAnalyzer_1_1Tests_1_1GraphManagerTests.html#ae1fef3d334b684f5ccb4a6e9afd58f61',1,'JH_DataAnalyzer::Tests::GraphManagerTests']]],
-  ['testzoomevent_58',['TestZoomEvent',['../classJH__DataAnalyzer_1_1Tests_1_1GraphManagerTests.html#a14dc5ba26c569b9ec85d56d3cea9ec41',1,'JH_DataAnalyzer::Tests::GraphManagerTests']]]
+  ['savefiledialogfilter_51',['SaveFileDialogFilter',['../classJH__DataAnalyzer_1_1GraphManager.html#a4f69b95a2b84195573e4ee8a808c7c52',1,'JH_DataAnalyzer::GraphManager']]],
+  ['settings_2edesigner_2ecs_52',['Settings.Designer.cs',['../Settings_8Designer_8cs.html',1,'']]],
+  ['show_5fone_5fgraph_5fclick_53',['Show_One_Graph_Click',['../classJH__DataAnalyzer_1_1UIController.html#a23a8fa764891380b0b8d2c55122b0f04',1,'JH_DataAnalyzer::UIController']]],
+  ['showgraphs_5fclick_54',['ShowGraphs_Click',['../classJH__DataAnalyzer_1_1UIController.html#aded1a2645f823b492ace9b97d63b1050',1,'JH_DataAnalyzer::UIController']]]
 ];

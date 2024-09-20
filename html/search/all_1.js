@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['barcode_5flist_5fmousedown_3',['Barcode_List_MouseDown',['../classJH__DataAnalyzer_1_1UIController.html#a23aaa08c308ee3785f23b40a08718f0b',1,'JH_DataAnalyzer::UIController']]],
-  ['barcodes_4',['Barcodes',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessor.html#aab3e4ee63680ae33e3b89d7f8e0bb8c8',1,'JH_DataAnalyzer::Tests::FileProcessor']]]
+  ['adduniqueitemasync_2',['AddUniqueItemAsync',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessor.html#adcc47f3202a30b989d48f6862173524b',1,'JH_DataAnalyzer::Tests::FileProcessor']]],
+  ['adduniqueitemtolist_3',['AddUniqueItemToList',['../classJH__DataAnalyzer_1_1FileProcessor.html#a715426d35625bc3fc2ef6a433917d7ec',1,'JH_DataAnalyzer::FileProcessor']]],
+  ['assemblyinfo_2ecs_4',['AssemblyInfo.cs',['../AssemblyInfo_8cs.html',1,'']]]
 ];
