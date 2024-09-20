@@ -12,8 +12,8 @@ on:
 
 jobs:
   build:
-    # Linux 환경에서 실행하여 크로스 플랫폼 호환성 확보
-    runs-on: ubuntu-latest
+    # Windows 환경에서 실행하여 Windows 종속성 문제 해결
+    runs-on: windows-latest
     
     steps:
     - uses: actions/checkout@v3
@@ -29,19 +29,20 @@ jobs:
       run: dotnet nuget locals all --clear
     
     - name: Create solution file
+      # 솔루션 파일 재생성 및 프로젝트 추가
       run: |
-        rm -f JH_DataAnalyzer.sln
-        dotnet new sln -n JH_DataAnalyzer --force
-        find . -name "*.csproj" -exec dotnet sln JH_DataAnalyzer.sln add {} \;
+        if (Test-Path JH_DataAnalyzer.sln) { Remove-Item JH_DataAnalyzer.sln }
+        dotnet new sln -n JH_DataAnalyzer
+        Get-ChildItem -Recurse -Filter *.csproj | ForEach-Object { dotnet sln JH_DataAnalyzer.sln add $_.FullName }
     
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore JH_DataAnalyzer.sln
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build JH_DataAnalyzer.sln --configuration Release --no-restore
 
     - name: Test with coverage
-      run: dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:EnableWindowsTargeting=true
+      run: dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
   sonarcloud:
     runs-on: windows-latest
@@ -64,13 +65,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       shell: powershell
-      # SonarScanner 실행 시 JRE 프로비저닝 건너뛰기 옵션 추가
+      # SonarScanner 실행 및 분석
       run: |
         dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.scanner.scanAll=false /d:sonar.coverage.exclusions="**/*Tests.cs" /d:sonar.scanner.skipJreProvisioning=true
-        dotnet build --configuration Release /p:EnableWindowsTargeting=true
-        dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:EnableWindowsTargeting=true
+        dotnet build JH_DataAnalyzer.sln --configuration Release
+        dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
+        
   create_release:
     runs-on: ubuntu-latest
     needs: [build, sonarcloud]
