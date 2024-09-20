@@ -23,7 +23,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'  # 프로젝트에 맞는 .NET 버전 사용
+        dotnet-version: '8.0.x'  # 프로젝트에 맞는 .NET 버전 사용
     
     - name: Clear NuGet cache
       run: dotnet nuget locals all --clear
@@ -35,10 +35,10 @@ jobs:
         find . -name "*.csproj" -exec dotnet sln JH_DataAnalyzer.sln add {} \;
     
     - name: Restore dependencies
-      run: dotnet restore JH_DataAnalyzer.sln /p:EnableWindowsTargeting=true
+      run: dotnet restore
 
     - name: Build
-      run: dotnet build JH_DataAnalyzer.sln --configuration Release --no-restore /p:EnableWindowsTargeting=true
+      run: dotnet build --configuration Release --no-restore
 
     - name: Test with coverage
       run: dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:EnableWindowsTargeting=true
@@ -54,7 +54,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
 
     - name: Install SonarCloud scanner
       run: dotnet tool install --global dotnet-sonarscanner
