@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['getgraphform_20',['GetGraphForm',['../classJH__DataAnalyzer_1_1GraphManager.html#a30e4beb831fb38ededee539da2117074',1,'JH_DataAnalyzer.GraphManager.GetGraphForm()'],['../classJH__DataAnalyzer_1_1Tests_1_1GraphManager.html#a72151abc260c5c2c6d5fbef1a5162878',1,'JH_DataAnalyzer.Tests.GraphManager.GetGraphForm()']]],
-  ['globalusings_2ecs_21',['GlobalUsings.cs',['../GlobalUsings_8cs.html',1,'']]],
-  ['graphform_22',['graphForm',['../classJH__DataAnalyzer_1_1JH__DataAnalyzer.html#a53d7a4f32e5e44dff3a3128c5e2ff028',1,'JH_DataAnalyzer::JH_DataAnalyzer']]],
-  ['graphmanager_23',['GraphManager',['../classJH__DataAnalyzer_1_1GraphManager.html',1,'JH_DataAnalyzer.GraphManager'],['../classJH__DataAnalyzer_1_1Tests_1_1GraphManager.html',1,'JH_DataAnalyzer.Tests.GraphManager']]],
-  ['graphmanagertests_24',['GraphManagerTests',['../classJH__DataAnalyzer_1_1Tests_1_1GraphManagerTests.html',1,'JH_DataAnalyzer::Tests']]],
-  ['graphmanagertests_2ecs_25',['GraphManagerTests.cs',['../GraphManagerTests_8cs.html',1,'']]],
-  ['graphstate_26',['GraphState',['../structJH__DataAnalyzer_1_1GraphState.html',1,'JH_DataAnalyzer']]]
+  ['image_25',['Image',['../JH__DataAnalyzer_8cs.html#a30acfd96c08f4113812658e049470119',1,'JH_DataAnalyzer.cs']]],
+  ['imageformats_26',['ImageFormats',['../classJH__DataAnalyzer_1_1GraphManager.html#a536278a3b2b8217d5e3731de04f6f398',1,'JH_DataAnalyzer::GraphManager']]],
+  ['initialize_27',['Initialize',['../classJH__DataAnalyzer_1_1FileProcessor.html#a99fb84eaec48c1a67509601069e76499',1,'JH_DataAnalyzer.FileProcessor.Initialize()'],['../classJH__DataAnalyzer_1_1GraphManager.html#abeb9328cdcf05d469e9066c816dc9042',1,'JH_DataAnalyzer.GraphManager.Initialize()'],['../classJH__DataAnalyzer_1_1UIController.html#a683dd886502366454ee20f90ca4c3b14',1,'JH_DataAnalyzer.UIController.Initialize()'],['../classJH__DataAnalyzer_1_1Tests_1_1GraphManager.html#acec96ecd6bb3ea722902be151e3f6caf',1,'JH_DataAnalyzer.Tests.GraphManager.Initialize()']]],
+  ['initialstates_28',['InitialStates',['../classJH__DataAnalyzer_1_1JH__DataAnalyzer.html#a838c1cbf3aee8e148abd37f709d52a89',1,'JH_DataAnalyzer::JH_DataAnalyzer']]]
 ];

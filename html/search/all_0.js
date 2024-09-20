@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['_2enetcoreapp_2cversion_3dv8_2e0_2eassemblyattributes_2ecs_0',['.NETCoreApp,Version=v8.0.AssemblyAttributes.cs',['../src_2obj_2Debug_2net8_80-windows_2_8NETCoreApp_00Version_0av8_80_8AssemblyAttributes_8cs.html',1,'(Global Namespace)'],['../tests_2JH__DataAnalyzer_8Tests_2obj_2Debug_2net8_80_2_8NETCoreApp_00Version_0av8_80_8AssemblyAttributes_8cs.html',1,'(Global Namespace)'],['../tests_2JH__DataAnalyzer_8Tests_2obj_2Debug_2net8_80-windows_2_8NETCoreApp_00Version_0av8_80_8AssemblyAttributes_8cs.html',1,'(Global Namespace)']]],
-  ['_2enetframework_2cversion_3dv4_2e7_2e2_2eassemblyattributes_2ecs_1',['.NETFramework,Version=v4.7.2.AssemblyAttributes.cs',['../_8NETFramework_00Version_0av4_87_82_8AssemblyAttributes_8cs.html',1,'']]]
+  ['adduniqueitemasync_0',['AddUniqueItemAsync',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessor.html#adcc47f3202a30b989d48f6862173524b',1,'JH_DataAnalyzer::Tests::FileProcessor']]],
+  ['adduniqueitemtolist_1',['AddUniqueItemToList',['../classJH__DataAnalyzer_1_1FileProcessor.html#a715426d35625bc3fc2ef6a433917d7ec',1,'JH_DataAnalyzer::FileProcessor']]],
+  ['assemblyinfo_2ecs_2',['AssemblyInfo.cs',['../AssemblyInfo_8cs.html',1,'']]]
 ];

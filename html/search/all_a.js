@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['onegraphcontrol_41',['oneGraphControl',['../classJH__DataAnalyzer_1_1JH__DataAnalyzer.html#ab419d810415d12b7c07c24087cb9782f',1,'JH_DataAnalyzer::JH_DataAnalyzer']]],
-  ['onegraphform_42',['oneGraphForm',['../classJH__DataAnalyzer_1_1JH__DataAnalyzer.html#a1a90718c70eac0e544077ae2fd9857b1',1,'JH_DataAnalyzer::JH_DataAnalyzer']]]
+  ['processfile_37',['ProcessFile',['../classJH__DataAnalyzer_1_1FileProcessor.html#a58e32d24fef0d2782f77955c661d66af',1,'JH_DataAnalyzer::FileProcessor']]],
+  ['processfileasync_38',['ProcessFileAsync',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessor.html#a7fe44319abd4fb276ec54f600824beca',1,'JH_DataAnalyzer::Tests::FileProcessor']]],
+  ['processfolder_39',['ProcessFolder',['../classJH__DataAnalyzer_1_1FileProcessor.html#a13fc67904d278e8a1cff6aea570d4296',1,'JH_DataAnalyzer::FileProcessor']]],
+  ['processfolderasync_40',['ProcessFolderAsync',['../classJH__DataAnalyzer_1_1Tests_1_1FileProcessor.html#a95e98382344a37cd793e4ea8317b8e86',1,'JH_DataAnalyzer::Tests::FileProcessor']]],
+  ['program_2ecs_41',['Program.cs',['../Program_8cs.html',1,'']]]
 ];
