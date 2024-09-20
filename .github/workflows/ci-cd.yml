@@ -59,6 +59,12 @@ jobs:
     - name: Install SonarCloud scanner
       run: dotnet tool install --global dotnet-sonarscanner
 
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'  # SonarScanner에 필요한 Java 버전
+
     - name: Recreate solution file
       # SonarCloud 분석을 위해 솔루션 파일 재생성
       run: |
