@@ -12,7 +12,8 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Windows 환경에서 실행
+    # Linux 환경으로 변경하여 Windows 경로 문제 해결
+    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3  # 리포지토리 코드를 체크아웃
@@ -24,25 +25,21 @@ jobs:
       with:
         dotnet-version: '6.0.x'  # .NET 6.0 버전 사용
     
-    - name: Cache NuGet packages  # NuGet 패키지 캐싱으로 빌드 속도 향상
-      uses: actions/cache@v3
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
+    # NuGet 패키지 복원 문제 해결을 위한 단계 추가
+    - name: Clear NuGet cache
+      run: dotnet nuget locals all --clear
     
     - name: Restore dependencies  # 프로젝트 종속성 복원
       run: dotnet restore
     
     - name: Build  # 프로젝트 빌드
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore
     
     - name: Test with coverage  # 단위 테스트 실행 및 커버리지 데이터 수집
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     
     - name: Publish  # 릴리스 구성으로 프로젝트 게시
-      run: dotnet publish src/JH_DataAnalyzer.csproj -c Release -o publish -r win-x64 --self-contained true
+      run: dotnet publish src/JH_DataAnalyzer.csproj -c Release -o publish
     
     - name: Upload artifact  # 빌드 결과물을 아티팩트로 업로드
       uses: actions/upload-artifact@v3
@@ -56,7 +53,7 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   sonarcloud:
-    runs-on: windows-latest  # Windows 환경으로 변경
+    runs-on: ubuntu-latest  # Linux 환경으로 변경
     needs: build  # build 작업 완료 후 실행
     steps:
     - uses: actions/checkout@v3
@@ -79,10 +76,11 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-        dotnet build --no-restore
+        dotnet build --configuration Release
         dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
+  # 나머지 작업들은 그대로 유지
   create_release:
     runs-on: ubuntu-latest
     needs: [build, sonarcloud]  # build와 sonarcloud 작업 완료 후 실행
