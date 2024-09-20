@@ -35,13 +35,13 @@ jobs:
         find . -name "*.csproj" -exec dotnet sln JH_DataAnalyzer.sln add {} \;
     
     - name: Restore dependencies
-      run: dotnet restore JH_DataAnalyzer.sln
-    
+      run: dotnet restore JH_DataAnalyzer.sln /p:EnableWindowsTargeting=true
+
     - name: Build
-      run: dotnet build JH_DataAnalyzer.sln --configuration Release --no-restore
-    
+      run: dotnet build JH_DataAnalyzer.sln --configuration Release --no-restore /p:EnableWindowsTargeting=true
+
     - name: Test with coverage
-      run: dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:EnableWindowsTargeting=true
 
   sonarcloud:
     runs-on: windows-latest
