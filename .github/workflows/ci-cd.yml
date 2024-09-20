@@ -26,21 +26,14 @@ jobs:
     - name: Clear NuGet cache
       run: dotnet nuget locals all --clear
     
-    - name: Recreate solution file
-      # 솔루션 파일 재생성 및 프로젝트 추가
-      run: |
-        Remove-Item -Force JH_DataAnalyzer.sln -ErrorAction SilentlyContinue
-        dotnet new sln -n JH_DataAnalyzer
-        Get-ChildItem -Recurse -Filter *.csproj | ForEach-Object { dotnet sln JH_DataAnalyzer.sln add $_.FullName }
-    
     - name: Restore dependencies
-      run: dotnet restore JH_DataAnalyzer.sln
+      run: dotnet restore
     
     - name: Build
-      run: dotnet build JH_DataAnalyzer.sln --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
     
     - name: Test with coverage
-      run: dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
   sonarcloud:
     needs: build
@@ -59,12 +52,8 @@ jobs:
     - name: Install SonarCloud scanner
       run: dotnet tool install --global dotnet-sonarscanner
 
-    - name: Recreate solution file
-      # SonarCloud 분석을 위해 솔루션 파일 재생성
-      run: |
-        Remove-Item -Force JH_DataAnalyzer.sln -ErrorAction SilentlyContinue
-        dotnet new sln -n JH_DataAnalyzer
-        Get-ChildItem -Recurse -Filter *.csproj | ForEach-Object { dotnet sln JH_DataAnalyzer.sln add $_.FullName }
+    - name: Remove sonar-project.properties
+      run: Remove-Item -Path sonar-project.properties -ErrorAction SilentlyContinue
 
     - name: Build and analyze
       env:
@@ -74,8 +63,8 @@ jobs:
       # SonarScanner 실행 및 분석
       run: |
         dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.scanner.scanAll=false /d:sonar.coverage.exclusions="**/*Tests.cs" /d:sonar.scanner.skipJreProvisioning=true
-        dotnet build JH_DataAnalyzer.sln --configuration Release
-        dotnet test JH_DataAnalyzer.sln --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        dotnet build --configuration Release
+        dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
         
   create_release:
