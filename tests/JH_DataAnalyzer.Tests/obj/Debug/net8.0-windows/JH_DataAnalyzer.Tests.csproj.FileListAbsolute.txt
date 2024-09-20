@@ -1,0 +1,6 @@
+D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\tests\JH_DataAnalyzer.Tests\bin\Debug\net8.0-windows\CoverletSourceRootsMapping_JH_DataAnalyzer.Tests
+D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\tests\JH_DataAnalyzer.Tests\obj\Debug\net8.0-windows\JH_DataAnalyzer.Tests.csproj.AssemblyReference.cache
+D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\tests\JH_DataAnalyzer.Tests\obj\Debug\net8.0-windows\JH_DataAnalyzer.Tests.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\tests\JH_DataAnalyzer.Tests\obj\Debug\net8.0-windows\JH_DataAnalyzer.Tests.AssemblyInfoInputs.cache
+D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\tests\JH_DataAnalyzer.Tests\obj\Debug\net8.0-windows\JH_DataAnalyzer.Tests.AssemblyInfo.cs
+D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\tests\JH_DataAnalyzer.Tests\obj\Debug\net8.0-windows\JH_DataAnalyzer.Tests.csproj.CoreCompileInputs.cache
