@@ -1,0 +1,73 @@
+name: CI/CD Pipeline
+
+# 워크플로우 트리거 설정
+on:
+  push:
+    branches: [ main ]  # main 브랜치에 푸시될 때
+    tags:
+      - 'v*'  # v로 시작하는 모든 태그에 대해 워크플로우 실행
+  pull_request:
+    branches: [ main ]  # main 브랜치로의 PR에 대해
+  workflow_dispatch:  # 수동으로 워크플로우를 실행할 수 있게 함
+
+jobs:
+  build:
+    # Windows 환경에서 실행하여 경로 문제 해결
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # 전체 Git 히스토리를 가져옴 (SonarCloud 분석용)
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'  # 프로젝트에 맞는 .NET 버전 사용
+    
+    - name: Clear NuGet cache
+      # NuGet 캐시 초기화로 패키지 해결 문제 방지
+      run: dotnet nuget locals all --clear
+    
+    - name: Restore dependencies
+      # Windows 환경에서 종속성 복원
+      run: dotnet restore
+    
+    - name: Build
+      # Windows 환경에서 프로젝트 빌드
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Test with coverage
+      # Windows 환경에서 테스트 실행 및 커버리지 데이터 수집
+      run: dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+  sonarcloud:
+    # SonarCloud 분석도 Windows 환경에서 실행
+    runs-on: windows-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Install SonarCloud scanner
+      run: dotnet tool install --global dotnet-sonarscanner
+
+    - name: Build and analyze
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      shell: powershell
+      # SonarScanner 실행 시 JRE 프로비저닝 건너뛰기 옵션 추가
+      run: |
+        dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.scanner.scanAll=false /d:sonar.coverage.exclusions="**/*Tests.cs" /d:sonar.scanner.skipJreProvisioning=true
+        dotnet build --configuration Release
+        dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
+  # 나머지 작업들 (create_release, generate_docs)은 변경 없이 유지
