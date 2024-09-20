@@ -34,7 +34,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore /p:EnableWindowsTargeting=true
     
     - name: Test with coverage  # 단위 테스트 실행 및 커버리지 데이터 수집
-      run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     
     - name: Publish  # 릴리스 구성으로 프로젝트 게시
       run: dotnet publish src/JH_DataAnalyzer.csproj -c Release -o publish -r win-x64 --self-contained true
@@ -63,19 +63,19 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
-    - name: Install SonarCloud scanner
+    - name: Install SonarCloud scanner  # SonarCloud 스캐너 설치
       run: |
         dotnet tool install --global dotnet-sonarscanner
         dotnet tool install --global coverlet.console
 
-    - name: Build and analyze
+    - name: Build and analyze  # 빌드 및 SonarCloud 분석 실행
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         dotnet sonarscanner begin /k:"jaewan234_pipeline" /o:"jaewan234" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
         dotnet build --configuration Release /p:EnableWindowsTargeting=true
-        dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        dotnet test --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
   create_release:
