@@ -1,9 +1,0 @@
-bin/
-obj/
-packages/
-*.user
-.vs/
-".cs" 
-".puml" 
-"Doxyfile.bak" 
-"Temp.txt" 
