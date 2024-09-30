@@ -1,8 +1,0 @@
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.csproj.AssemblyReference.cache
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.FileProcessor.resources
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.Properties.Resources.resources
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.csproj.GenerateResource.cache
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.GeneratedMSBuildEditorConfig.editorconfig
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.AssemblyInfoInputs.cache
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.AssemblyInfo.cs
-D:\ProgramData\NewP[~6]\Work\refactoring\pipe\JH_DataAnalyzer\src\obj\Debug\net8.0-windows\JH_DataAnalyzer.csproj.CoreCompileInputs.cache
